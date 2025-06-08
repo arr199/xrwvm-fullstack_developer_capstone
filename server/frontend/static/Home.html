@@ -1,64 +1,186 @@
 <html>
-<head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="static/style.css">
-  <link rel="stylesheet" href="static/bootstrap.min.css">
-<script>
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="static/style.css" />
+    <link rel="stylesheet" href="static/bootstrap.min.css" />
+    <script>
+      const logout = async (e) => {
+        //Include the code for logout here.
+      };
 
-const logout = async (e) => {
-//Include the code for logout here.
-};
+      let checkSession = () => {
+        let curr_user = sessionStorage.getItem("username");
 
-let checkSession = ()=>{
-  let curr_user = sessionStorage.getItem("username");
+        if (curr_user && curr_user !== "") {
+          document.getElementById("loginlogout").innerHTML =
+            '<span class="homepage_links">' +
+            curr_user +
+            "</span>" +
+            '<a class="homepage_links" onclick="logout()" href="/">Logout</a>';
+        } else {
+          document.getElementById("loginlogout").innerHTML =
+            '<a class="homepage_links" href="/login">Login</a>' +
+            '<a class="homepage_links"  href="/register">Register</a>';
+        }
+      };
+    </script>
+  </head>
+  <style>
+      * {
+        box-sizing: border-box;
+      }
+    
+    .navbar {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important;
+      height: 1in;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
 
-  if (curr_user && curr_user !== "") {
-    document.getElementById("loginlogout").innerHTML = 
-    '<span class="homepage_links">' + curr_user +'</span>' +
-    '<a class="homepage_links" onclick="logout()" href="/">Logout</a>'
-  } else {
-    document.getElementById("loginlogout").innerHTML = 
-    '<a class="homepage_links" href="/login">Login</a>'+
-    '<a class="homepage_links"  href="/register">Register</a>'
-  }
- }
-</script>
-</head>
-<body onload="checkSession()">
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
-  <div class="container-fluid">
-    <h2 style="padding-right: 5%;">Dealerships</h2>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" style="font-size: larger;" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style="font-size: larger;" href="/about">About Us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style="font-size: larger;" href="/contact">Contact Us</a>
-        </li>
-      </ul>
-      <span class="navbar-text">
-        <div class="loginlink" id="loginlogout">
+    .navbar-brand,
+    .navbar-nav .nav-link,
+    .navbar-text {
+      color: white !important;
+      font-weight: 500;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #f8f9fa !important;
+      transform: translateY(-1px);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-nav .nav-link.active {
+      color: #fff !important;
+      font-weight: bold;
+    }
+
+    .homepage_links {
+      color: white !important;
+      text-decoration: none;
+      margin: 0 8px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .homepage_links:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white !important;
+      text-decoration: none;
+    }
+
+    .card {
+      border: none;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .banner {
+      padding: 30px;
+      text-align: center;
+    }
+
+    .banner h5 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #1e3c72;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #2a5298, #1e3c72) !important;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      color: white !important;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #1e3c72, #2a5298) !important;
+      transform: translateY(-2px);
+      color: white !important;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(42, 82, 152, 0.3);
+    }
+  </style>
+  <body onload="checkSession()">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <h2 style="padding-right: 5%; color: white; margin: 0">Dealerships</h2>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          style="border-color: rgba(255, 255, 255, 0.3)"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                style="font-size: larger"
+                aria-current="page"
+                href="#"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="font-size: larger" href="/about"
+                >About Us</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="font-size: larger" href="/contact"
+                >Contact Us</a
+              >
+            </li>
+          </ul>
+          <span class="navbar-text">
+            <div class="loginlink" id="loginlogout"></div>
+          </span>
         </div>
-        </span>
+      </div>
+    </nav>
+    <div style="display: flex; flex-direction: column">
+      <div
+        class="card"
+        style="width: 50%; margin-top: 50px; align-self: center"
+      >
+        <img src="static/car_dealership.jpg" class="card-img-top" alt="..." />
+        <div class="banner">
+          <h5>Welcome to our Dealerships!</h5>
+          <a href="/dealers" class="btn" style="margin: 10px"
+            >View Dealerships</a
+          >
+        </div>
+      </div>
     </div>
-  </div>
-</nav>
-<div style="display: flex;flex-direction: column;">
-<div class="card" style="width: 50%;margin-top: 50px;align-self: center;">
-  <img src="static/car_dealership.jpg" class="card-img-top" alt="...">
-  <div class="banner">
-    <h5>Welcome to our Dealerships!</h5>
-    <a href="/dealers" class="btn" style="background-color: aqua;margin:10px">View Dealerships</a>
-  </div>
-</div>
-</div>
-</body>
+  </body>
 </html>
