@@ -1,68 +1,400 @@
-<html>
-<head>
-  <!-- Link the style sheet here -->
-</head>
-<div>
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
-    <div class="container-fluid">
-      <h2 style="padding-right: 5%;">Dealerships</h2>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" style="font-size: larger;" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" style="font-size: larger;" href="/about">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" style="font-size: larger;" href="/contact">Contact Us</a>
-          </li>
-        </ul>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - Best Cars Dealership</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="static/style.css" />
+    <link rel="stylesheet" href="static/bootstrap.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      /* Enhanced Navigation - Matching Home Page */
+      .navbar {
+        background: linear-gradient(
+          135deg,
+          #1e3c72 0%,
+          #2a5298 100%
+        ) !important;
+        height: 1in;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-brand,
+      .navbar-nav .nav-link,
+      .navbar-text {
+        color: white !important;
+        font-weight: 500;
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: #f8f9fa !important;
+        transform: translateY(-1px);
+        transition: all 0.3s ease;
+      }
+
+      .navbar-nav .nav-link.active {
+        color: #fff !important;
+        font-weight: bold;
+      }
+
+      .navbar h2 {
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        margin: 0;
+        padding-right: 5%;
+      }
+
+      /* Homepage Links Styling */
+      .homepage_links {
+        color: white !important;
+        text-decoration: none;
+        margin: 0 8px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .homepage_links:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white !important;
+        text-decoration: none;
+      }
+
+      /* Main Card Container */
+      .card {
+        border: none;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Banner Section */
+      .banner {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 60px 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .banner::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        pointer-events: none;
+      }
+
+      .banner h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 1;
+      }
+
+      .banner p {
+        font-size: 1.3rem;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto;
+        opacity: 0.95;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Team Cards Container */
+      .team-container {
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+        padding: 50px 40px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      /* Individual Team Cards */
+      .team-card {
+        width: 320px;
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .team-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .team-card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        transition: all 0.3s ease;
+      }
+
+      .team-card:hover img {
+        transform: scale(1.05);
+      }
+
+      .card-body {
+        padding: 30px 25px;
+        text-align: center;
+      }
+
+      .title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #2563eb;
+        margin-bottom: 8px;
+      }
+
+      .card-body p:nth-child(2) {
+        color: #6b7280;
+        font-weight: 500;
+        font-size: 1rem;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .card-text {
+        color: #4b5563;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        font-size: 0.95rem;
+      }
+
+      .card-body p:last-child {
+        color: #0891b2;
+        font-weight: 500;
+        background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
+        padding: 10px 15px;
+        border-radius: 8px;
+        border: 1px solid #a5f3fc;
+        margin: 0;
+        transition: all 0.3s ease;
+      }
+
+      .card-body p:last-child:hover {
+        background: linear-gradient(135deg, #cffafe 0%, #a5f3fc 100%);
+        transform: scale(1.02);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .team-container {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .banner h1 {
+          font-size: 2.5rem;
+        }
+
+        .banner p {
+          font-size: 1.1rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .banner {
+          padding: 40px 20px;
+        }
+
+        .banner h1 {
+          font-size: 2rem;
+        }
+
+        .team-container {
+          padding: 30px 20px;
+          gap: 20px;
+        }
+
+        .team-card {
+          width: 100%;
+          max-width: 350px;
+        }
+      }
+
+      /* Additional Visual Enhancements */
+      .main-container {
+        width: 85%;
+        margin: auto;
+        margin-top: 3%;
+        margin-bottom: 3%;
+      }
+
+      /* Subtle animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .team-card {
+        animation: fadeInUp 0.6s ease forwards;
+      }
+
+      .team-card:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+
+      .team-card:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .team-card:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+    </style>
+  </head>
+  <body onload="checkSession()">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <h2 style="padding-right: 5%; color: white; margin: 0">Dealerships</h2>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          style="border-color: rgba(255, 255, 255, 0.3)"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                style="font-size: larger"
+                aria-current="page"
+                href="/"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" style="font-size: larger" href="/about"
+                >About Us</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="font-size: larger" href="/contact"
+                >Contact Us</a
+              >
+            </li>
+          </ul>
+          <span class="navbar-text">
+            <div class="loginlink" id="loginlogout"></div>
+          </span>
+        </div>
       </div>
-    </div>
-  </nav>
-  
-    <div class="card" style="width: 80%;margin: auto; margin-top:5%;">
+    </nav>
+
+    <div class="card main-container">
       <div class="banner" name="about-header">
-      <!-- Insert header information here -->
+        <h1>About Us</h1>
+        <p>
+          Welcome to Best Cars dealership, home to the best cars in North
+          America. We deal in sale of domestic and imported cars at reasonable
+          prices.
+        </p>
       </div>
-      <div style="display: flex;flex-direction: row; margin:auto">
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person1</p>
-          <p>Person1 Title</p>
-          <p class="card-text">Some text that explains the person1 in about 2 short sentences</p>
-          <p>person1@example.com</p>
+      <div class="team-container">
+        <div class="card team-card">
+          <img
+            class="card-img-top h-50"
+            src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Card image"
+          />
+          <div class="card-body">
+            <p class="title">Sarah Mitchell</p>
+            <p>Sales Manager</p>
+            <p class="card-text">
+              Experienced sales professional with 8+ years helping customers
+              find their perfect vehicle. Specializes in luxury and electric
+              vehicles.
+            </p>
+            <p>sarah.mitchell@autodealers.com</p>
+          </div>
         </div>
-      </div>
 
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person2</p>
-          <p>Person2 Title</p>
-          <p class="card-text">Some text that explains the person2 in about 2 short sentences</p>
-          <p>person2@example.com</p>
+        <div class="card team-card">
+          <img
+            class="card-img-top h-50"
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Card image"
+          />
+          <div class="card-body">
+            <p class="title">Jessica Thompson</p>
+            <p>Service Advisor</p>
+            <p class="card-text">
+              Certified automotive technician and service coordinator. Ensures
+              your vehicle receives top-quality maintenance and repairs.
+            </p>
+            <p>jessica.thompson@autodealers.com</p>
+          </div>
         </div>
-      </div>
 
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person3</p>
-          <p>Person3 Title</p>
-          <p class="card-text">Some text that explains the person3 in about 2 short sentences</p>
-          <p>person3@example.com</p>
+        <div class="card team-card">
+          <img
+            class="card-img-top h-50"
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Card image"
+          />
+          <div class="card-body">
+            <p class="title">Mike Rodriguez</p>
+            <p>Finance Specialist</p>
+            <p class="card-text">
+              Expert in automotive financing and leasing options. Helps
+              customers secure the best deals and payment plans for their
+              budget.
+            </p>
+            <p>mike.rodriguez@autodealers.com</p>
+          </div>
         </div>
       </div>
     </div>
-    </div>
-    </div>
-    
-</div>
-
+  </body>
 </html>
