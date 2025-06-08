@@ -15,7 +15,20 @@
     <link rel="stylesheet" href="static/bootstrap.min.css" />
     <script>
       const logout = async (e) => {
-        //Include the code for logout here.
+        const logoutURL = window.location.origin + "/djangoapp/logout";
+        const res = await fetch(logoutURL);
+        const data = await res.json();
+
+        if (data) {
+          const username = sessionStorage.getItem("username");
+          sessionStorage.removeItem("username");
+
+          window.location.reload();
+
+          alert("Logging out " + username + "...");
+        } else {
+          alert("The user could not logged out");
+        }
       };
 
       let checkSession = () => {
@@ -26,7 +39,7 @@
             '<span class="homepage_links">' +
             curr_user +
             "</span>" +
-            '<a class="homepage_links" onclick="logout()" href="/">Logout</a>';
+            '<a class="homepage_links" onclick="logout()" href="#">Logout</a>';
         } else {
           document.getElementById("loginlogout").innerHTML =
             '<a class="homepage_links" href="/login">Login</a>' +
@@ -36,10 +49,10 @@
     </script>
   </head>
   <style>
-      * {
-        box-sizing: border-box;
-      }
-    
+    * {
+      box-sizing: border-box;
+    }
+
     .navbar {
       background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important;
       height: 1in;
