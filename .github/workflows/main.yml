@@ -47,5 +47,5 @@ jobs:
         run: |
           # Use ESLint's built-in glob pattern matching
           cd server/database
-          eslint --config eslint.config.mjs "**/*.js"
+          npx eslint --config eslint.config.mjs "**/*.js"
           echo "Linted all the js files successfully"
