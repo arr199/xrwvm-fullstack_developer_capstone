@@ -39,7 +39,10 @@ jobs:
         with:
           node-version: 18
       - name: Install eslint
-        run: npm install eslint --global
+        run: |
+          npm install eslint @eslint/js --global 
+          
+
       - name: Run Linter
         run: |
           # Use ESLint's built-in glob pattern matching
