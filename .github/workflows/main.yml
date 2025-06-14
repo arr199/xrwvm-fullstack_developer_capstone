@@ -40,7 +40,7 @@ jobs:
           node-version: 18
       - name: Install eslint
         run: |
-          npm install eslint @eslint/js --global 
+          npm install eslint @eslint/js  
           
 
       - name: Run Linter
