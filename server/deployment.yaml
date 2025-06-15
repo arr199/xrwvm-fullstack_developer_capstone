@@ -1,0 +1,146 @@
+# MongoDB Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+  labels:
+    app: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:latest
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: mongodb-storage
+          mountPath: /data/db
+      volumes:
+      - name: mongodb-storage
+        persistentVolumeClaim:
+          claimName: mongodb-pvc
+---
+# MongoDB PersistentVolumeClaim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# MongoDB Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-db
+spec:
+  selector:
+    app: mongodb
+  ports:
+  - port: 27017
+    targetPort: 27017
+  type: ClusterIP
+---
+# Node API Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-api
+  labels:
+    app: node-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-api
+  template:
+    metadata:
+      labels:
+        app: node-api
+    spec:
+      imagePullSecrets:
+      - name: icr-secret  # If your API image is also in a private registry
+      containers:
+      - name: node-api
+        image: de.icr.io/arr1993/nodeapp:v6  # Update with your actual image
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3030
+        env:
+        - name: MONGODB_URI
+          value: "mongodb://mongo-db:27017"  # Matches your code's connection string
+        # Add other environment variables your API needs
+---
+# Node API Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-api-service
+spec:
+  selector:
+    app: node-api
+  ports:
+  - port: 3030
+    targetPort: 3030
+  type: ClusterIP
+---
+# Dealership Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: dealership
+  name: dealership
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: dealership
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: dealership
+    spec:
+      imagePullSecrets:
+      - name: icr-secret
+      containers:
+      - image: de.icr.io/arr1993/dealearship:latest
+        imagePullPolicy: Always
+        name: dealership
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        env:
+        - name: backend_url
+          value: "http://node-api-service:3030"  # If your app needs to connect to the API
+      restartPolicy: Always
+---
+# Dealership Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: dealership-service
+spec:
+  selector:
+    run: dealership
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: LoadBalancer  # or ClusterIP if accessed internally only

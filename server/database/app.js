@@ -13,22 +13,35 @@ const dealerships_data = JSON.parse(
   fs.readFileSync("dealerships.json", "utf8")
 );
 
-mongoose.connect("mongodb://mongo_db:27017/", { dbName: "dealershipsDB" });
-
 const Reviews = require("./review");
-
 const Dealerships = require("./dealership");
 
-try {
-  Reviews.deleteMany({}).then(() => {
-    Reviews.insertMany(reviews_data["reviews"]);
-  });
-  Dealerships.deleteMany({}).then(() => {
-    Dealerships.insertMany(dealerships_data["dealerships"]);
-  });
-} catch (error) {
-  console.error(error);
+async function seedDatabase() {
+  try {
+    await Reviews.deleteMany({});
+    await Reviews.insertMany(reviews_data["reviews"]);
+    await Dealerships.deleteMany({});
+    await Dealerships.insertMany(dealerships_data["dealerships"]);
+    console.log("Database seeded successfully");
+  } catch (error) {
+    console.error("Error seeding database:", error);
+  }
 }
+
+mongoose
+  .connect("mongodb://mongo-db:27017/", { dbName: "dealershipsDB" })
+  .then(async () => {
+    console.log("MongoDB connected");
+    await seedDatabase();
+
+    // Start the Express server only after seeding
+    app.listen(port, () => {
+      console.log(`Server is running on http://localhost:${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error("MongoDB connection error:", error);
+  });
 
 // Express route to home
 app.get("/", async (req, res) => {
@@ -61,6 +74,7 @@ app.get("/fetchReviews/dealer/:id", async (req, res) => {
 app.get("/fetchDealers", async (req, res) => {
   try {
     const data = await Dealerships.find();
+    console.log("Dealerships found:", data);
     return res.json(data);
   } catch {
     return res.status(500).json({ error: "Error fetching dealerships" });
@@ -112,9 +126,4 @@ app.post("/insert_review", express.raw({ type: "*/*" }), async (req, res) => {
     console.log(error);
     res.status(500).json({ error: "Error inserting review" });
   }
-});
-
-// Start the Express server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
 });
